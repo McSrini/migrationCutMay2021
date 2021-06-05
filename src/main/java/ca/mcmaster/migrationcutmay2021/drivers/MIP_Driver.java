@@ -38,7 +38,7 @@ public class MIP_Driver {
         cg .createPriorityList();
         
         //finish solving original problem
-        originalTree.solve(NUM_CYCLES    , null);
+        originalTree.solve(NUM_CYCLES   , null);
         originalTree.end();
         
         IloCplex newCplex = new IloCplex();

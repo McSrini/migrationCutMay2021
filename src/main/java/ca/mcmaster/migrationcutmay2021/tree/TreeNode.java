@@ -5,7 +5,7 @@
  */
 package ca.mcmaster.migrationcutmay2021.tree;
 
-import static ca.mcmaster.migrationcutmay2021.Constants.ZERO;
+import static ca.mcmaster.migrationcutmay2021.Constants.*; 
 import ca.mcmaster.migrationcutmay2021.migrationCut.VarBoundDirection;
 
 /**

@@ -7,6 +7,9 @@ package ca.mcmaster.migrationcutmay2021.tree;
 
 import static ca.mcmaster.migrationcutmay2021.Constants.*;
 import ca.mcmaster.migrationcutmay2021.migrationCut.VarBoundDirection;
+import ca.mcmaster.migrationcutmay2021.mip.NodeAttachment;
+import ca.mcmaster.migrationcutmay2021.mip.embeddedBI.BI_TREE_Generator;
+import ca.mcmaster.migrationcutmay2021.mip.embeddedBI.BI_Tree;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class Tree {
     
     public LCANode rootNode = new  LCANode();
     public List<VarBoundDirection> offsetFrom_MIPRoot;
+    
+    public List<NodeAttachment> leafNodes = null;
     
     public Tree (TreeNode rootNode, List<VarBoundDirection> offsetFrom_MIPRoot) throws Exception {
         
@@ -49,10 +54,13 @@ public class Tree {
         return (ONE != numKids) ;
     }
     
+  
+    
     public List<List<VarBoundDirection>> getFathomedBranches(   ) throws Exception{
         return getFathomedBranches(rootNode) ;
     }
-       
+    
+ 
     private  List<List<VarBoundDirection>> getFathomedBranches(LCANode lcaNode) throws Exception{
         
         if (! isLCAOrLeaf (lcaNode) ) {

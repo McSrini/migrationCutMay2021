@@ -27,7 +27,12 @@ public class CplexUtils {
         cplex.setParam( IloCplex.Param.MIP.Strategy.HeuristicFreq , -ONE);
         cplex.setParam( IloCplex.Param.MIP.Strategy.VariableSelect , BRANCHING_STRATGEY );
         cplex.setParam( IloCplex.Param.WorkMem, THOUSAND * HUGE_WORKMEM) ;
-        cplex.setParam(IloCplex.Param.Emphasis.MIP, MIP_EMPHASIS_TO_USE) ;         
+        cplex.setParam(IloCplex.Param.Emphasis.MIP, MIP_EMPHASIS_TO_USE) ;    
+        
+        if ( DISABLE_PRESOLVE){
+            cplex.setParam( IloCplex.Param.MIP.Strategy.PresolveNode , -ONE  );
+            cplex.setParam( IloCplex.Param.Preprocessing.Presolve,  false);
+        }
                 
     }
             

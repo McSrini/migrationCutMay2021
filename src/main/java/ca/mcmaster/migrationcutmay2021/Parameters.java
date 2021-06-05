@@ -11,9 +11,10 @@ package ca.mcmaster.migrationcutmay2021;
  */
 public class Parameters {
         
-    public static final String INPUT_MIP_NAME =  "neosrahue" + ".pre.sav";
-    public static final int MIP_EMPHASIS_TO_USE =  2 ;
+    public static final String INPUT_MIP_NAME =  "neosavoca" + ".pre.sav";
+    public static final int MIP_EMPHASIS_TO_USE =  2;
      
+    public static  final boolean DISABLE_PRESOLVE =  true;
      
     //the follwoing parameters are largely constant
     
@@ -25,7 +26,7 @@ public class Parameters {
     public static final String PRIORITY_LIST_ORIGINAL_VARS = MIP_FOLDER + "originalVars.ser";
         
     public static final int  HUGE_WORKMEM = 192 ;// gig   
-    public static final int MAX_THREADS=   System.getProperty("os.name").toLowerCase().contains("win") ?   2: 32;
+    public static final int MAX_THREADS=   System.getProperty("os.name").toLowerCase().contains("win") ?   2 : 32;
     public static final int SOLUTION_CYCLE_TIME_MINUTES= 60 ;
     //public static final int          MAX_SOLUTION_CYCLES = 5;
     public static final int NUM_CYCLES= 2 ;

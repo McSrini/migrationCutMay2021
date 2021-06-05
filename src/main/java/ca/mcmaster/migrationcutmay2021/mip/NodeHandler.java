@@ -35,6 +35,7 @@ public class NodeHandler  extends IloCplex.NodeCallback {
                         //this leaf and its ancestors have always been in memory
                         leafNodeList.add (attachment);
                         
+                        //TEST
                         //System.out.println(nodeID );
                     }
                     

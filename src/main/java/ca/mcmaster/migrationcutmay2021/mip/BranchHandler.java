@@ -74,6 +74,7 @@ public class BranchHandler extends IloCplex.BranchCallback{
                     
                 }
 
+                //TEST
                 //System.out.println("Node " + getNodeId() + " created " + kid + " isdown " +  isDownBranch + " var " + var.getName() + " bound "+ bound) ;
 
             }//for both kids 

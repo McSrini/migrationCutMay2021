@@ -5,6 +5,9 @@
  */
 package ca.mcmaster.migrationcutmay2021.mip;
 
+import static ca.mcmaster.migrationcutmay2021.Constants.*;
+import ca.mcmaster.migrationcutmay2021.mip.embeddedBI.BI_Tree;
+
 /**
  *
  * @author tamvadss
@@ -18,7 +21,27 @@ public class NodeAttachment {
     
     public boolean amITheDownBranchChild = false;
     
-   
+    public BI_Tree biTree = null;
     
+     
+    
+    public int numLeafsinDownBranch = ZERO;
+    public int numLeafsinUpBranch = ZERO;
+    public int num_nonLeafsDown = ZERO;
+    public int num_nonLeafsUp = ZERO;
+    public NodeAttachment downChild = null;
+    public NodeAttachment upChild = null;
+    
+    public boolean isPerfect (){
+        boolean cond1 =  (ONE + num_nonLeafsDown + num_nonLeafsUp +ONE == numLeafsinDownBranch+numLeafsinUpBranch);
+        boolean cond2 = ZERO== numLeafsinDownBranch+numLeafsinUpBranch;
+        return cond1 || cond2;
+    }
+    
+    public boolean isParentOfSingleCHild (){
+        boolean isParentOfSingleChild = this.downChild==null && this.upChild!=null ;
+        isParentOfSingleChild = isParentOfSingleChild || (this.downChild!=null && this.upChild==null ) ;
+        return isParentOfSingleChild;
+    }
 }
 

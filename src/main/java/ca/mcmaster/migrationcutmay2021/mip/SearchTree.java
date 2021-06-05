@@ -8,6 +8,8 @@ package ca.mcmaster.migrationcutmay2021.mip;
 import static ca.mcmaster.migrationcutmay2021.Constants.*;
 import static ca.mcmaster.migrationcutmay2021.Parameters.*;
 import ca.mcmaster.migrationcutmay2021.migrationCut.VarBoundDirection;
+import ca.mcmaster.migrationcutmay2021.mip.embeddedBI.BI_Tree;
+import ca.mcmaster.migrationcutmay2021.mip.embeddedBI.EmbeddedBI_BranchHandler;
 import ca.mcmaster.migrationcutmay2021.tree.*;
 import static ca.mcmaster.migrationcutmay2021.utils.CplexUtils.*;
 import static ca.mcmaster.migrationcutmay2021.utils.FileUtils.*;
@@ -32,7 +34,7 @@ public class SearchTree {
     
     private static Logger logger;
     
-    private IloCplex cplex;
+    public IloCplex cplex;
    
     static {
         logger=Logger.getLogger(SearchTree.class);
@@ -72,7 +74,13 @@ public class SearchTree {
         cplex.end();
     }
     
-    public double solve (int NUM_HOURS, Double upperCutoff) throws Exception{
+    public double solve (int NUM_HOURS, Double upperCutoff ) throws Exception{
+        return solve (  NUM_HOURS,   upperCutoff, null, null  );
+    }
+    
+    public double solve (int NUM_HOURS, Double upperCutoff,
+            
+            BI_Tree biTree,       Map<String, IloNumVar> variablesInThisModel ) throws Exception{
         
         double bestSolutionFound = BILLION;
         
@@ -81,12 +89,15 @@ public class SearchTree {
                        + " emphasis " + MIP_EMPHASIS_TO_USE);
         cplex.setParam( IloCplex.Param.Threads, MAX_THREADS);
         
-        cplex.setParam( IloCplex.Param.TimeLimit,  SIXTY* SOLUTION_CYCLE_TIME_MINUTES  );
+        cplex.setParam( IloCplex.Param.TimeLimit,    SIXTY* SOLUTION_CYCLE_TIME_MINUTES   );
         
         if (null!=upperCutoff) cplex.setParam (IloCplex.Param.MIP.Tolerances.UpperCutoff, upperCutoff) ;
                  
         cplex.clearCallbacks();
-        BranchHandler bh = new BranchHandler ();
+        IloCplex.BranchCallback bh = new BranchHandler ();
+        if (biTree!=null){
+            bh = new  EmbeddedBI_BranchHandler (  biTree,   variablesInThisModel );
+        }
         cplex.use (bh );
         
         for (int hour = ONE; hour <=  NUM_HOURS ; hour ++){    
@@ -134,6 +145,7 @@ public class SearchTree {
         ObjectForExport exportObj = new ObjectForExport ();
         exportObj.cplex =cplexForExport;
         exportObj .tree = tree;
+        exportObj.tree.leafNodes= leafNodes;
         return exportObj;
     }
     
